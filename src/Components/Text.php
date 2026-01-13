@@ -38,10 +38,12 @@ class Text extends Component
     /**
      * Create a new Text instance.
      */
-    public static function make(string|Closure|null $content = null): static
+    public static function make(?string $name = null): static
     {
         $instance = new static;
-        $instance->content = $content;
+        $instance->name = $name ?? '';
+        $instance->content = $name;
+        $instance->setUp();
 
         return $instance;
     }

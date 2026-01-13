@@ -127,7 +127,7 @@ class UnorderedList extends Component
      */
     public function toArray(): array
     {
-        $items = array_map(function ($item) {
+        $items = array_map(static function ($item) {
             if ($item instanceof Text) {
                 return $item->toArray();
             }

@@ -32,12 +32,16 @@ class Image extends Component
 
     /**
      * Create a new Image instance.
+     *
+     * For the Filament-style API with url and alt, use:
+     * Image::make()->url($url)->alt($alt)
      */
-    public static function make(string|Closure|null $url = null, string|Closure|null $alt = null): static
+    public static function make(?string $name = null): static
     {
         $instance = new static;
-        $instance->url = $url;
-        $instance->alt = $alt;
+        $instance->name = $name ?? '';
+        $instance->url = $name;
+        $instance->setUp();
 
         return $instance;
     }

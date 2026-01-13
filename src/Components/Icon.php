@@ -25,10 +25,12 @@ class Icon extends Component
     /**
      * Create a new Icon instance.
      */
-    public static function make(string|Closure|null $icon = null): static
+    public static function make(?string $name = null): static
     {
         $instance = new static;
-        $instance->icon = $icon;
+        $instance->name = $name ?? '';
+        $instance->icon = $name;
+        $instance->setUp();
 
         return $instance;
     }
