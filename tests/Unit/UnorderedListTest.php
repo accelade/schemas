@@ -5,8 +5,14 @@ declare(strict_types=1);
 use Accelade\Schemas\Components\Text;
 use Accelade\Schemas\Components\UnorderedList;
 
-it('can create unordered list with items', function () {
-    $list = UnorderedList::make(['Item 1', 'Item 2', 'Item 3']);
+it('can create unordered list', function () {
+    $list = UnorderedList::make();
+
+    expect($list)->toBeInstanceOf(UnorderedList::class);
+});
+
+it('can create unordered list with items using fromItems', function () {
+    $list = UnorderedList::fromItems(['Item 1', 'Item 2', 'Item 3']);
 
     expect($list)->toBeInstanceOf(UnorderedList::class);
     expect($list->getItems())->toBe(['Item 1', 'Item 2', 'Item 3']);
@@ -20,39 +26,39 @@ it('can set items', function () {
 });
 
 it('has default size of md', function () {
-    $list = UnorderedList::make([]);
+    $list = UnorderedList::make();
 
     expect($list->getSize())->toBe('md');
 });
 
 it('can set size', function () {
-    $list = UnorderedList::make([])
+    $list = UnorderedList::make()
         ->size('lg');
 
     expect($list->getSize())->toBe('lg');
 });
 
 it('has default color of neutral', function () {
-    $list = UnorderedList::make([]);
+    $list = UnorderedList::make();
 
     expect($list->getColor())->toBe('neutral');
 });
 
 it('can set color', function () {
-    $list = UnorderedList::make([])
+    $list = UnorderedList::make()
         ->color('muted');
 
     expect($list->getColor())->toBe('muted');
 });
 
 it('has default bullet color of neutral', function () {
-    $list = UnorderedList::make([]);
+    $list = UnorderedList::make();
 
     expect($list->getBulletColor())->toBe('neutral');
 });
 
 it('can set bullet color', function () {
-    $list = UnorderedList::make([])
+    $list = UnorderedList::make()
         ->bulletColor('success');
 
     expect($list->getBulletColor())->toBe('success');
@@ -60,10 +66,11 @@ it('can set bullet color', function () {
 
 it('can contain Text components', function () {
     $textItem = Text::make('Styled item')->color('primary');
-    $list = UnorderedList::make([
-        'Plain item',
-        $textItem,
-    ]);
+    $list = UnorderedList::make()
+        ->items([
+            'Plain item',
+            $textItem,
+        ]);
 
     $items = $list->getItems();
 
@@ -73,7 +80,8 @@ it('can contain Text components', function () {
 });
 
 it('can convert to array', function () {
-    $list = UnorderedList::make(['Item 1', 'Item 2'])
+    $list = UnorderedList::make()
+        ->items(['Item 1', 'Item 2'])
         ->size('lg')
         ->color('muted')
         ->bulletColor('primary');
@@ -89,7 +97,8 @@ it('can convert to array', function () {
 
 it('converts Text items to array', function () {
     $textItem = Text::make('Styled')->color('success');
-    $list = UnorderedList::make(['Plain', $textItem]);
+    $list = UnorderedList::make()
+        ->items(['Plain', $textItem]);
 
     $array = $list->toArray();
 

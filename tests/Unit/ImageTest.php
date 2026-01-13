@@ -4,8 +4,23 @@ declare(strict_types=1);
 
 use Accelade\Schemas\Components\Image;
 
-it('can create image with url and alt', function () {
-    $image = Image::make(url: 'https://example.com/image.jpg', alt: 'Example image');
+it('can create image', function () {
+    $image = Image::make();
+
+    expect($image)->toBeInstanceOf(Image::class);
+});
+
+it('can create image with url', function () {
+    $image = Image::make('https://example.com/image.jpg');
+
+    expect($image)->toBeInstanceOf(Image::class);
+    expect($image->getUrl())->toBe('https://example.com/image.jpg');
+});
+
+it('can create image with url and alt using fluent api', function () {
+    $image = Image::make()
+        ->url('https://example.com/image.jpg')
+        ->alt('Example image');
 
     expect($image)->toBeInstanceOf(Image::class);
     expect($image->getUrl())->toBe('https://example.com/image.jpg');
@@ -101,7 +116,9 @@ it('can be circular', function () {
 });
 
 it('can convert to array', function () {
-    $image = Image::make(url: 'https://example.com/test.jpg', alt: 'Test')
+    $image = Image::make()
+        ->url('https://example.com/test.jpg')
+        ->alt('Test')
         ->imageWidth('200px')
         ->imageHeight('100px')
         ->alignCenter()
