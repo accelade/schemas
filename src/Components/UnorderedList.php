@@ -26,14 +26,26 @@ class UnorderedList extends Component
     /**
      * Create a new UnorderedList instance.
      *
-     * @param  array<int, string|Text>|Closure  $items
+     * Use items() method to set list items:
+     * UnorderedList::make()->items(['Item 1', 'Item 2'])
      */
-    public static function make(array|Closure $items = []): static
+    public static function make(?string $name = null): static
     {
         $instance = new static;
-        $instance->items = $items;
+        $instance->name = $name ?? '';
+        $instance->setUp();
 
         return $instance;
+    }
+
+    /**
+     * Create with items (convenience factory).
+     *
+     * @param  array<int, string|Text>  $items
+     */
+    public static function fromItems(array $items): static
+    {
+        return static::make()->items($items);
     }
 
     /**
