@@ -1,0 +1,108 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Schemas\Components;
+
+use Accelade\Schemas\Component;
+use Accelade\Schemas\Concerns\HasSchema;
+use Closure;
+
+/**
+ * Custom schema component: {{ class }}
+ */
+class {{ class }} extends Component
+{
+    use HasSchema;
+
+    protected string|Closure|null $heading = null;
+
+    protected string|Closure|null $description = null;
+
+    /**
+     * Create a new component instance.
+     */
+    public static function make(?string $heading = null): static
+    {
+        $static = new static;
+        $static->heading = $heading;
+        $static->setUp();
+
+        return $static;
+    }
+
+    /**
+     * Set up the component. Override to add default configuration.
+     */
+    protected function setUp(): void
+    {
+        // Add any default configuration here
+    }
+
+    /**
+     * Set the heading.
+     */
+    public function heading(string|Closure|null $heading): static
+    {
+        $this->heading = $heading;
+
+        return $this;
+    }
+
+    /**
+     * Get the heading.
+     */
+    public function getHeading(): ?string
+    {
+        return $this->evaluate($this->heading);
+    }
+
+    /**
+     * Set the description.
+     */
+    public function description(string|Closure|null $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get the description.
+     */
+    public function getDescription(): ?string
+    {
+        return $this->evaluate($this->description);
+    }
+
+    /**
+     * Get the view name for this component.
+     */
+    protected function getView(): string
+    {
+        return 'schemas.components.{{ view }}';
+    }
+
+    /**
+     * Get the view data for rendering.
+     */
+    protected function getViewData(): array
+    {
+        return array_merge(parent::getViewData(), [
+            'heading' => $this->getHeading(),
+            'description' => $this->getDescription(),
+            'schema' => $this->getVisibleSchema(),
+        ]);
+    }
+
+    /**
+     * Convert component to array for JSON serialization.
+     */
+    public function toArray(): array
+    {
+        return array_merge(parent::toArray(), [
+            'heading' => $this->getHeading(),
+            'description' => $this->getDescription(),
+        ]);
+    }
+}

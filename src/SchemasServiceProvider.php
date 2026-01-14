@@ -30,6 +30,7 @@ class SchemasServiceProvider extends ServiceProvider
         ['id' => 'schemas-icon', 'label' => 'Icon', 'icon' => '🎯', 'markdown' => 'icon.md', 'description' => 'Display SVG icons with colors and sizes', 'keywords' => ['icon', 'svg', 'symbol', 'graphic'], 'view' => 'schemas::docs.sections.icon'],
         ['id' => 'schemas-image', 'label' => 'Image', 'icon' => '🖼️', 'markdown' => 'image.md', 'description' => 'Display images with alignment and styling', 'keywords' => ['image', 'photo', 'picture', 'avatar'], 'view' => 'schemas::docs.sections.image'],
         ['id' => 'schemas-unordered-list', 'label' => 'List', 'icon' => '📋', 'markdown' => 'unordered-list.md', 'description' => 'Display bullet point lists', 'keywords' => ['list', 'bullet', 'unordered', 'items'], 'view' => 'schemas::docs.sections.unordered-list'],
+        ['id' => 'schemas-custom-components', 'label' => 'Custom Components', 'icon' => '🔧', 'markdown' => 'custom-components.md', 'description' => 'Create your own custom schema components', 'keywords' => ['custom', 'component', 'create', 'make', 'extend'], 'view' => 'schemas::docs.sections.custom-components'],
     ];
 
     /**
@@ -94,6 +95,7 @@ class SchemasServiceProvider extends ServiceProvider
             // Register commands
             $this->commands([
                 Console\InstallCommand::class,
+                Console\MakeSchemaComponentCommand::class,
             ]);
         }
     }
