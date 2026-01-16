@@ -1,4 +1,4 @@
-# Schemas Overview
+# Schemas
 
 Accelade Schemas provides layout components for organizing forms, content, and data displays in your Laravel applications.
 
