@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Accelade\Schemas;
 
+use Accelade\Schemas\Contracts\HasRecord;
+use Accelade\Schemas\Contracts\Renderable;
 use Closure;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Traits\Conditionable;
 
 /**
  * Base component class for schema layout components.
  */
-abstract class Component implements Htmlable
+abstract class Component implements HasRecord, Renderable
 {
     use Conditionable;
 
@@ -24,6 +25,12 @@ abstract class Component implements Htmlable
     protected bool $isHidden = false;
 
     protected array $extraAttributes = [];
+
+    protected mixed $record = null;
+
+    protected int|string|null $columnSpan = null;
+
+    protected int|string|null $columnStart = null;
 
     /**
      * Create a new component instance.
@@ -115,6 +122,78 @@ abstract class Component implements Htmlable
     public function isHidden(): bool
     {
         return $this->isHidden;
+    }
+
+    /**
+     * Set the record for this component.
+     */
+    public function record(mixed $record): static
+    {
+        $this->record = $record;
+
+        return $this;
+    }
+
+    /**
+     * Get the record for this component.
+     */
+    public function getRecord(): mixed
+    {
+        return $this->record;
+    }
+
+    /**
+     * Set the column span for grid layouts.
+     */
+    public function columnSpan(int|string|null $span): static
+    {
+        $this->columnSpan = $span;
+
+        return $this;
+    }
+
+    /**
+     * Make the component span all columns.
+     */
+    public function columnSpanFull(): static
+    {
+        $this->columnSpan = 'full';
+
+        return $this;
+    }
+
+    /**
+     * Get the column span.
+     */
+    public function getColumnSpan(): int|string|null
+    {
+        return $this->columnSpan;
+    }
+
+    /**
+     * Check if column span is full.
+     */
+    public function isColumnSpanFull(): bool
+    {
+        return $this->columnSpan === 'full';
+    }
+
+    /**
+     * Set the column start position.
+     */
+    public function columnStart(int|string|null $start): static
+    {
+        $this->columnStart = $start;
+
+        return $this;
+    }
+
+    /**
+     * Get the column start position.
+     */
+    public function getColumnStart(): int|string|null
+    {
+        return $this->columnStart;
     }
 
     /**

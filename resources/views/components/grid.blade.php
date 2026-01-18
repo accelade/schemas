@@ -42,7 +42,27 @@
 >
     @if(!empty($schema))
         @foreach($schema as $child)
-            {!! $child->render() !!}
+            @php
+                $childColumnSpan = method_exists($child, 'getColumnSpan') ? $child->getColumnSpan() : null;
+                $childColumnStart = method_exists($child, 'getColumnStart') ? $child->getColumnStart() : null;
+
+                $childSpanClass = match ($childColumnSpan) {
+                    'full' => 'col-span-full',
+                    2 => 'sm:col-span-2',
+                    3 => 'lg:col-span-3',
+                    4 => 'lg:col-span-4',
+                    default => null,
+                };
+
+                $childStartClass = $childColumnStart ? "col-start-{$childColumnStart}" : null;
+            @endphp
+            <div @class([
+                'accelade-grid-item',
+                $childSpanClass,
+                $childStartClass,
+            ])>
+                {!! $child->render() !!}
+            </div>
         @endforeach
     @else
         {{ $slot }}

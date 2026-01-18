@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Accelade\Schemas\Concerns;
 
-use Accelade\Schemas\Component;
+use Accelade\Schemas\Contracts\HasRecord;
+use Illuminate\Contracts\Support\Htmlable;
 
 /**
  * Trait for components that can contain child components.
@@ -16,7 +17,7 @@ trait HasSchema
     /**
      * Set child components.
      *
-     * @param  array<Component|mixed>  $components
+     * @param  array<Htmlable>  $components
      */
     public function schema(array $components): static
     {
@@ -35,16 +36,29 @@ trait HasSchema
 
     /**
      * Get visible child components (filter out hidden ones).
+     * This also passes the record to children that support it.
      */
     public function getVisibleSchema(): array
     {
-        return array_values(array_filter($this->schema, function ($component): bool {
-            if (method_exists($component, 'isHidden')) {
-                return ! $component->isHidden();
-            }
+        $record = method_exists($this, 'getRecord') ? $this->getRecord() : null;
 
-            return true;
-        }));
+        return array_values(array_filter(
+            array_map(function ($component) use ($record) {
+                // Pass record to children that support it
+                if ($record !== null && $component instanceof HasRecord) {
+                    $component->record($record);
+                }
+
+                return $component;
+            }, $this->schema),
+            function ($component): bool {
+                if (method_exists($component, 'isHidden')) {
+                    return ! $component->isHidden();
+                }
+
+                return true;
+            }
+        ));
     }
 
     /**
