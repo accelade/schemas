@@ -16,21 +16,25 @@ class SchemasServiceProvider extends ServiceProvider
      * @var array<int, array<string, mixed>>
      */
     private const DOCUMENTATION_SECTIONS = [
+        // Main entry - no subgroup
         ['id' => 'schemas-overview', 'label' => 'Overview', 'icon' => '📋', 'markdown' => 'overview.md', 'description' => 'Schema layout components for organizing content', 'keywords' => ['schema', 'layout', 'organize', 'structure'], 'view' => 'schemas::docs.sections.overview'],
-        ['id' => 'schemas-section', 'label' => 'Section', 'icon' => '📦', 'markdown' => 'section.md', 'description' => 'Collapsible sections with headings', 'keywords' => ['section', 'collapsible', 'heading', 'container'], 'view' => 'schemas::docs.sections.section'],
-        ['id' => 'schemas-tabs', 'label' => 'Tabs', 'icon' => '📑', 'markdown' => 'tabs.md', 'description' => 'Tabbed content panels', 'keywords' => ['tabs', 'tab', 'panel', 'navigation'], 'view' => 'schemas::docs.sections.tabs'],
-        ['id' => 'schemas-grid', 'label' => 'Grid', 'icon' => '⊞', 'markdown' => 'grid.md', 'description' => 'Responsive grid layouts', 'keywords' => ['grid', 'columns', 'layout', 'responsive'], 'view' => 'schemas::docs.sections.grid'],
-        ['id' => 'schemas-wizard', 'label' => 'Wizard', 'icon' => '🧙', 'markdown' => 'wizard.md', 'description' => 'Multi-step wizard forms', 'keywords' => ['wizard', 'steps', 'multi-step', 'form'], 'view' => 'schemas::docs.sections.wizard'],
-        ['id' => 'schemas-fieldset', 'label' => 'Fieldset', 'icon' => '📝', 'markdown' => 'fieldset.md', 'description' => 'Group related fields with a legend', 'keywords' => ['fieldset', 'legend', 'group', 'form'], 'view' => 'schemas::docs.sections.fieldset'],
-        ['id' => 'schemas-split', 'label' => 'Split', 'icon' => '↔️', 'markdown' => 'split.md', 'description' => 'Two-column layouts with configurable ratios', 'keywords' => ['split', 'two-column', 'sidebar', 'layout'], 'view' => 'schemas::docs.sections.split'],
-        ['id' => 'schemas-columns', 'label' => 'Columns', 'icon' => '▤', 'markdown' => 'columns.md', 'description' => 'Simple equal-width column layouts', 'keywords' => ['columns', 'equal', 'layout', 'grid'], 'view' => 'schemas::docs.sections.columns'],
-        ['id' => 'schemas-flex', 'label' => 'Flex', 'icon' => '↔️', 'markdown' => 'flex.md', 'description' => 'Flexible width layouts using flexbox', 'keywords' => ['flex', 'flexbox', 'layout', 'responsive', 'grow'], 'view' => 'schemas::docs.sections.flex'],
-        ['id' => 'schemas-empty-state', 'label' => 'Empty State', 'icon' => '📭', 'markdown' => 'empty-state.md', 'description' => 'Display meaningful empty states', 'keywords' => ['empty', 'state', 'placeholder', 'no-content'], 'view' => 'schemas::docs.sections.empty-state'],
-        ['id' => 'schemas-text', 'label' => 'Text', 'icon' => '📝', 'markdown' => 'text.md', 'description' => 'Display styled text content and badges', 'keywords' => ['text', 'badge', 'content', 'typography'], 'view' => 'schemas::docs.sections.text'],
-        ['id' => 'schemas-icon', 'label' => 'Icon', 'icon' => '🎯', 'markdown' => 'icon.md', 'description' => 'Display SVG icons with colors and sizes', 'keywords' => ['icon', 'svg', 'symbol', 'graphic'], 'view' => 'schemas::docs.sections.icon'],
-        ['id' => 'schemas-image', 'label' => 'Image', 'icon' => '🖼️', 'markdown' => 'image.md', 'description' => 'Display images with alignment and styling', 'keywords' => ['image', 'photo', 'picture', 'avatar'], 'view' => 'schemas::docs.sections.image'],
-        ['id' => 'schemas-unordered-list', 'label' => 'List', 'icon' => '📋', 'markdown' => 'unordered-list.md', 'description' => 'Display bullet point lists', 'keywords' => ['list', 'bullet', 'unordered', 'items'], 'view' => 'schemas::docs.sections.unordered-list'],
-        ['id' => 'schemas-custom-components', 'label' => 'Custom Components', 'icon' => '🔧', 'markdown' => 'custom-components.md', 'description' => 'Create your own custom schema components', 'keywords' => ['custom', 'component', 'create', 'make', 'extend'], 'view' => 'schemas::docs.sections.custom-components'],
+        // Layout
+        ['id' => 'schemas-section', 'label' => 'Section', 'icon' => '📦', 'markdown' => 'section.md', 'description' => 'Collapsible sections with headings', 'keywords' => ['section', 'collapsible', 'heading', 'container'], 'view' => 'schemas::docs.sections.section', 'subgroup' => 'layout'],
+        ['id' => 'schemas-tabs', 'label' => 'Tabs', 'icon' => '📑', 'markdown' => 'tabs.md', 'description' => 'Tabbed content panels', 'keywords' => ['tabs', 'tab', 'panel', 'navigation'], 'view' => 'schemas::docs.sections.tabs', 'subgroup' => 'layout'],
+        ['id' => 'schemas-grid', 'label' => 'Grid', 'icon' => '⊞', 'markdown' => 'grid.md', 'description' => 'Responsive grid layouts', 'keywords' => ['grid', 'columns', 'layout', 'responsive'], 'view' => 'schemas::docs.sections.grid', 'subgroup' => 'layout'],
+        ['id' => 'schemas-wizard', 'label' => 'Wizard', 'icon' => '🧙', 'markdown' => 'wizard.md', 'description' => 'Multi-step wizard forms', 'keywords' => ['wizard', 'steps', 'multi-step', 'form'], 'view' => 'schemas::docs.sections.wizard', 'subgroup' => 'layout'],
+        ['id' => 'schemas-fieldset', 'label' => 'Fieldset', 'icon' => '📝', 'markdown' => 'fieldset.md', 'description' => 'Group related fields with a legend', 'keywords' => ['fieldset', 'legend', 'group', 'form'], 'view' => 'schemas::docs.sections.fieldset', 'subgroup' => 'layout'],
+        ['id' => 'schemas-split', 'label' => 'Split', 'icon' => '↔️', 'markdown' => 'split.md', 'description' => 'Two-column layouts with configurable ratios', 'keywords' => ['split', 'two-column', 'sidebar', 'layout'], 'view' => 'schemas::docs.sections.split', 'subgroup' => 'layout'],
+        ['id' => 'schemas-columns', 'label' => 'Columns', 'icon' => '▤', 'markdown' => 'columns.md', 'description' => 'Simple equal-width column layouts', 'keywords' => ['columns', 'equal', 'layout', 'grid'], 'view' => 'schemas::docs.sections.columns', 'subgroup' => 'layout'],
+        ['id' => 'schemas-flex', 'label' => 'Flex', 'icon' => '↔️', 'markdown' => 'flex.md', 'description' => 'Flexible width layouts using flexbox', 'keywords' => ['flex', 'flexbox', 'layout', 'responsive', 'grow'], 'view' => 'schemas::docs.sections.flex', 'subgroup' => 'layout'],
+        // Content
+        ['id' => 'schemas-empty-state', 'label' => 'Empty State', 'icon' => '📭', 'markdown' => 'empty-state.md', 'description' => 'Display meaningful empty states', 'keywords' => ['empty', 'state', 'placeholder', 'no-content'], 'view' => 'schemas::docs.sections.empty-state', 'subgroup' => 'content'],
+        ['id' => 'schemas-text', 'label' => 'Text', 'icon' => '📝', 'markdown' => 'text.md', 'description' => 'Display styled text content and badges', 'keywords' => ['text', 'badge', 'content', 'typography'], 'view' => 'schemas::docs.sections.text', 'subgroup' => 'content'],
+        ['id' => 'schemas-icon', 'label' => 'Icon', 'icon' => '🎯', 'markdown' => 'icon.md', 'description' => 'Display SVG icons with colors and sizes', 'keywords' => ['icon', 'svg', 'symbol', 'graphic'], 'view' => 'schemas::docs.sections.icon', 'subgroup' => 'content'],
+        ['id' => 'schemas-image', 'label' => 'Image', 'icon' => '🖼️', 'markdown' => 'image.md', 'description' => 'Display images with alignment and styling', 'keywords' => ['image', 'photo', 'picture', 'avatar'], 'view' => 'schemas::docs.sections.image', 'subgroup' => 'content'],
+        ['id' => 'schemas-unordered-list', 'label' => 'List', 'icon' => '📋', 'markdown' => 'unordered-list.md', 'description' => 'Display bullet point lists', 'keywords' => ['list', 'bullet', 'unordered', 'items'], 'view' => 'schemas::docs.sections.unordered-list', 'subgroup' => 'content'],
+        // Reference
+        ['id' => 'schemas-custom-components', 'label' => 'Custom Components', 'icon' => '🔧', 'markdown' => 'custom-components.md', 'description' => 'Create your own custom schema components', 'keywords' => ['custom', 'component', 'create', 'make', 'extend'], 'view' => 'schemas::docs.sections.custom-components', 'subgroup' => 'reference'],
     ];
 
     /**
@@ -154,7 +158,12 @@ class SchemasServiceProvider extends ServiceProvider
         $registry = $this->app->make('accelade.docs');
 
         $registry->registerPackage('schemas', __DIR__.'/../docs');
-        $registry->registerGroup('schemas', 'Schemas', '📐', 40);
+        $registry->registerGroup('schemas', 'Schemas', '📐', 30);
+
+        // Register sub-groups within Schemas
+        $registry->registerSubgroup('schemas', 'layout', '📦 Layout', '', 10);
+        $registry->registerSubgroup('schemas', 'content', '📝 Content', '', 20);
+        $registry->registerSubgroup('schemas', 'reference', '📚 Reference', '', 30);
 
         foreach ($this->getDocumentationSections() as $section) {
             $this->registerSection($registry, $section);
@@ -168,7 +177,7 @@ class SchemasServiceProvider extends ServiceProvider
      */
     protected function registerSection(DocsRegistry $registry, array $section): void
     {
-        $registry->section($section['id'])
+        $builder = $registry->section($section['id'])
             ->label($section['label'])
             ->icon($section['icon'])
             ->markdown($section['markdown'])
@@ -177,8 +186,13 @@ class SchemasServiceProvider extends ServiceProvider
             ->demo()
             ->view($section['view'])
             ->package('schemas')
-            ->inGroup('schemas')
-            ->register();
+            ->inGroup('schemas');
+
+        if (isset($section['subgroup'])) {
+            $builder->inSubgroup($section['subgroup']);
+        }
+
+        $builder->register();
     }
 
     /**
